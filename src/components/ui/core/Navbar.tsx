@@ -15,7 +15,7 @@ function Navbar() {
     <nav className="bg-stone-300 shadow-md sticky top-0 left-0 w-full z-50">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <img src="/images/logo_hotel.png" className="w-20 h-20" />
-        <ul className="flex space-x-6">
+        <ul className="md:flex space-x-6">
           {menuNav.map((value, index) => (
             <li key={index}>
               <Link

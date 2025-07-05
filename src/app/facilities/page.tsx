@@ -1,6 +1,6 @@
 "use client";
 
-import { Playfair_Display, Lora } from "next/font/google";
+import { Playfair_Display, Lora, Explora } from "next/font/google";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
@@ -10,6 +10,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import ExplorePage from "./components/Explore";
+import Footer from "@/components/ui/core/Footer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -89,17 +91,24 @@ export default function FacilitiesPage() {
   return (
     <div className={`${playfair.variable} ${lora.variable} bg-stone-100`}>
 
-      <section className="py-20 text-center bg-slate-800">
-        <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
-          Rooms & Facilities
-        </h1>
-        <p className="mt-4 text-xl text-stone-50 
-        font-lora tracking-widest italic">
-          "Everything you need for a memorable stay."
-        </p>
+      <section className="h-[400px] relative 
+           bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
+               Rooms & Facilities
+          </h1>
+          <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
+            "Everything you need for a memorable stay."
+          </p>
+        </div>
       </section>
 
-
+    {/* room */}
       <section className="py-16 px-4">
         <div className="container mx-auto bg-stone-200
         p-8 space-y-8 shadow-2xl">
@@ -202,7 +211,7 @@ export default function FacilitiesPage() {
             </div>}
         </div>
       </section>
-
+    {/* facilities */}
       <section className="py-16 px-4">
 
         <div className="container mx-auto p-8 bg-stone-200 shadow-2xl">
@@ -220,10 +229,11 @@ export default function FacilitiesPage() {
                 ${index === 0 ? "md:col-span-2 col-span-2" : ""}
                 ${index === 4 ? "md:col-span-3" : ""}`}
                 key={index}
-                onClick={() =>{ 
+                onClick={() => {
                   setSelectedImgF(index)
-                  setOpenImgF(true)} }
-                >
+                  setOpenImgF(true)
+                }}
+              >
 
                 <Image
                   src={value.img}
@@ -288,6 +298,8 @@ export default function FacilitiesPage() {
           </div>
         </div>
       </section>
+      <ExplorePage/>
+      <Footer/>
     </div>
   );
 }

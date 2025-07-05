@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/core/Footer";
 import { Playfair_Display, Lora } from "next/font/google";
 
 const playfair = Playfair_Display({
@@ -14,20 +15,28 @@ export default function AboutPage() {
   return (
     <div className={`${playfair.variable} ${lora.variable} bg-stone-500`}>
       {/* Section 1: About Us */}
-      <section className="bg-gray-800 py-20 text-center">
-        <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">About Grand Villia</h1>
-        <p className="mt-4 text-xl text-stone-50 
-        font-lora tracking-widest italic">
-         "Crafting memories with passion, recognized with pride."
-        </p>
+      <section className="h-[400px] relative 
+           bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
 
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
+            About Grand Villia
+          </h1>
+          <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
+            "Crafting memories with passion, recognized with pride."
+          </p>
+        </div>
       </section>
 
       {/* Section 2: Our Story */}
       <section className="relative overflow-hidden py-20 px-4 md:px-6">
         <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-center bg-stone-300 p-8 shadow-md">
           <div
-            className="h-[800px] shadow-lg 
+            className="md:h-[800px] h-[400px] shadow-lg 
             bg-[url('/images/about.webp')] 
             bg-fixed bg-cover bg-center"
           />
@@ -98,7 +107,7 @@ export default function AboutPage() {
           </div>
 
 
-          <div className="relative h-[800px] 
+          <div className="relative md:h-[800px] h-[400px] 
          shadow-lg bg-[url('/images/award.webp')] 
          bg-cover bg-center">
             <div className="absolute -right-15 -bottom-15 
@@ -115,7 +124,7 @@ export default function AboutPage() {
         </div>
 
       </section>
-
+    <Footer/>
     </div>
   );
 }

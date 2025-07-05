@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/core/Footer";
 import Guest from "@/components/ui/core/Guest";
 import Hero from "@/components/ui/core/Hero";
 import Testimonials from "@/components/ui/core/Testimonials";
@@ -10,6 +11,7 @@ export default function Home() {
       <Guest/>
       <WhyUs/>
       <Testimonials/>
+      <Footer/>
     </div>
 
   );

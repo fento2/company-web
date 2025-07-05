@@ -1,0 +1,36 @@
+import {
+    FilePen,
+    LogOut,
+    UserPen
+} from "lucide-react";
+
+
+export default function SidebarDashboard() {
+    return (
+        <aside className="fixed left-0 w-[240px]
+             bg-stone-300 p-6 h-full">
+
+            {/* Menu */}
+            <ul className="space-y-1">
+                <p className="text-left text-xs text-zinc-500 font-bold px-2 mb-2 border-b border-b-black/10 pb-1">
+                    DASHBOARD
+                </p>
+
+                <li className="group flex items-center gap-3 hover:bg-stone-400 transition cursor-pointer px-4 py-3 text-zinc-900">
+                    <UserPen className="w-5 h-5" />
+                    <span className="font-semibold tracking-wide">Profile</span>
+                </li>
+
+                <li className="group flex items-center gap-3 hover:bg-stone-400 transition cursor-pointer px-4 py-3 text-zinc-900">
+                    <FilePen className="w-5 h-5" />
+                    <span className="font-semibold tracking-wide">My Article</span>
+                </li>
+
+                <li className="group flex items-center gap-3 hover:bg-stone-400 hover:text-red-600 transition cursor-pointer px-4 py-3 mt-4 border-t border-black/10 pt-4 text-zinc-900">
+                    <LogOut className="w-5 h-5" />
+                    <span className="font-semibold tracking-wide">Log Out</span>
+                </li>
+            </ul>
+        </aside>
+    );
+}
