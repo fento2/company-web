@@ -1,102 +1,44 @@
+"use client"
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Search } from "lucide-react";
 import Footer from "@/components/ui/core/Footer";
-const blogPosts = [
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "10 Relaxing & Quiet Holiday Destinations",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Discover Authentic Taste of Budapest",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Top Adventure & Activity Holidays",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Insider Tips: Multi-gen Travel",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Immersive Dining Experience",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Cultural Travel Insider",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "10 Relaxing & Quiet Holiday Destinations",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Discover Authentic Taste of Budapest",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Top Adventure & Activity Holidays",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Insider Tips: Multi-gen Travel",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Immersive Dining Experience",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Cultural Travel Insider",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Top Adventure & Activity Holidays",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Insider Tips: Multi-gen Travel",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
-    {
-        img: "/images/lobby_hotel.webp",
-        title: "Immersive Dining Experience",
-        tag: "WHAT'S NEW",
-        link: "#",
-    },
+import { useEffect, useState } from "react";
+import { apiCall } from "@/helper/apiCall";
+import ArticleGrid from "./components/ArticleGrid";
 
-];
 
 export default function BlogPage() {
+
+    const [articleList, setArticleList] = useState<any[]>([]);
+
+
+    const getAllArticlesList = async () => {
+        try {
+            const res = await apiCall.get("/articles", {
+                params: {
+                    pageSize: 15,
+                    sortBy: "created",
+                }
+
+            });
+            setArticleList(res.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllArticlesList();
+
+    }, []);
+
+
+
+
+
     return (
         <div className="bg-stone-100">
 
@@ -143,45 +85,10 @@ export default function BlogPage() {
                     <Button
                         variant="ghost" className="text-lg"><ChevronDown /></Button>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[300px] gap-4">
-                    {blogPosts.map((post, index) => {
-
-
-                        return (
-                            <div
-                                key={index}
-                                className={`relative overflow-hidden group
-                                    ${index === 1 ? "md:row-span-2" : ""}
-                                    ${index === 3 ? "md:row-span-2" : ""}
-                                    ${index === 5 ? "md:col-span-2" : ""}
-                                    ${index === 8 ? "md:row-span-2" : ""}
-                                    ${index === 9 ? "md:col-span-2 md:row-span-2" : ""}
-                                    ${index === 11 ? "md:row-span-2" : ""}
-                                    ${index === 14 ? "md:col-span-2" : ""}`}
-                            >
-                                <Image
-                                    src={post.img}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute inset-0 bg-black/30" />
-                                <div className="absolute bottom-0 p-4 z-10 text-white">
-                                    <p className="text-xs uppercase">{post.tag}</p>
-                                    <h3 className="text-lg font-playfair font-semibold">
-                                        {post.title}
-                                    </h3>
-                                    <a href={post.link} className="text-sm underline">
-                                        Read article
-                                    </a>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                {/* list article */}
+                <ArticleGrid articleList={articleList} />
             </section>
-            
-            <Footer/>
+            <Footer />
         </div>
     );
 }

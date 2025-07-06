@@ -25,11 +25,6 @@ export default function SidebarDashboard() {
                     <FilePen className="w-5 h-5" />
                     <span className="font-semibold tracking-wide">My Article</span>
                 </li>
-
-                <li className="group flex items-center gap-3 hover:bg-stone-400 hover:text-red-600 transition cursor-pointer px-4 py-3 mt-4 border-t border-black/10 pt-4 text-zinc-900">
-                    <LogOut className="w-5 h-5" />
-                    <span className="font-semibold tracking-wide">Log Out</span>
-                </li>
             </ul>
         </aside>
     );

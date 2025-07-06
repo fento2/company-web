@@ -8,12 +8,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { apiCall } from "@/helper/apiCall";
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BookCheck, FileClock, Search } from "lucide-react";
 import { dataCategory } from "@/helper/dataCategory";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/lib/redux/hook";
+import GridMyArticle from "./components/GridMyArticle";
 
 
 const blogPosts = [
@@ -74,7 +76,30 @@ export default function Dashboard() {
     const formCreateCategory = useRef<HTMLFormElement>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>();
     const getCategory = useRef<string | null>(null)
+    const router = useRouter();
+    const isLogin = useAppSelector((state) => state.accountReducer.isLogin);
+    const username = useAppSelector((state) => state.accountReducer.username);
 
+    const [myArticleList, setMyArticleList] = useState<any[]>([]);
+
+
+    const getMyArticleList = async () => {
+        try {
+            const res = await apiCall.get("/articles", {
+                params: {
+                    pageSize: 10,
+                    offset: 0,
+                    sortBy: "created",
+                    where: `author = '${username}'`,
+                }
+            });
+            console.log(res.data)
+            setMyArticleList(res.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const BtCreateArticle = async () => {
 
@@ -86,7 +111,8 @@ export default function Dashboard() {
                     title: inputCreate.get("title"),
                     thumbnail: inputCreate.get("thumbnail"),
                     content: inputCreate.get("content"),
-                    category: getCategory.current
+                    category: getCategory.current,
+                    author: username
 
                 });
 
@@ -98,36 +124,44 @@ export default function Dashboard() {
                 console.log(error);
                 toast.error("Failed to upload article.");
             }
-            
+
             formCreateCategory.current.reset();
             setSelectedCategory(undefined);
             getCategory.current === null;
 
 
-        
-        }else{
+
+        } else {
             toast.error("Please complete all required fields.");
 
         }
 
-
-
-
-
     }
 
+    useEffect(() => {
 
+        if (isLogin === false) {
+
+            router.replace("/");
+
+        }
+        getMyArticleList();
+
+    }, [isLogin]);
 
 
 
     return (
         <div>
 
-            <SidebarDashboard />
+            <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
+                <SidebarDashboard />
+            </aside>
+
 
             <main className="bg-stone-100 min-h-screen w-full">
 
-                <section className="ml-[240px] p-8 space-y-12 bg-stone-100 min-h-screen">
+                <section className="lg:ml-[240px] p-8 space-y-12 bg-stone-100 min-h-screen">
                     {/* Heading */}
                     <div className="space-y-1">
                         <h1 className="text-zinc-900 text-sm">
@@ -136,13 +170,15 @@ export default function Dashboard() {
                         <h2 className="text-4xl font-bold tracking-wider text-slate-800">My Article</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+
                         {/* Form Section */}
                         <div className="space-y-6">
                             <h3 className="text-2xl font-bold text-slate-800">Post Article</h3>
 
+
                             <form ref={formCreateCategory}>
-                                <Card className="rounded-none shadow-md bg-white">
+                                <Card className="rounded-none shadow-md bg-white w-full">
                                     <CardHeader className="border-b pb-4 space-y-1">
                                         <h4 className="text-lg font-semibold text-slate-700">Create a New Article</h4>
                                         <p className="text-sm text-slate-500">
@@ -158,7 +194,7 @@ export default function Dashboard() {
                                                 id="title"
                                                 name="title"
                                                 type="text"
-                                                placeholder="Input Title" 
+                                                placeholder="Input Title"
                                                 className="rounded-none" />
                                         </div>
 
@@ -188,13 +224,13 @@ export default function Dashboard() {
                                         {/* Category */}
                                         <div className="space-y-2">
                                             <Label htmlFor="category">Category</Label>
-                                            <Select 
-                                            value={selectedCategory}
-                                            onValueChange={(value) => {
-                                            getCategory.current = value;
-                                            setSelectedCategory(value);
+                                            <Select
+                                                value={selectedCategory}
+                                                onValueChange={(value) => {
+                                                    getCategory.current = value;
+                                                    setSelectedCategory(value);
 
-                                            }}>
+                                                }}>
                                                 <SelectTrigger className="rounded-none">
                                                     <SelectValue placeholder="Choose category" />
                                                 </SelectTrigger>
@@ -210,11 +246,11 @@ export default function Dashboard() {
                                     </CardContent>
                                     <CardFooter>
                                         <Button variant="ghost"
-                                                type="button"
-                                                className="bg-stone-300 
+                                            type="button"
+                                            className="bg-stone-300 
                                                 rounded-none w-60 mx-auto
                                                 hover:bg-stone-400"
-                                                onClick={BtCreateArticle}>
+                                            onClick={BtCreateArticle}>
                                             Upload
                                         </Button>
                                     </CardFooter>
@@ -223,7 +259,7 @@ export default function Dashboard() {
                             </form>
                         </div>
 
-                        
+                        {/* list my article */}
                         <div className="space-y-6">
                             {/* Header */}
                             <div className="flex justify-between items-center">
@@ -237,7 +273,7 @@ export default function Dashboard() {
                                     cursor-pointer">
                                         <FileClock /><span>Draft</span></div>
                                 </div>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-center space-x-2 overflow-x-auto">
                                     <Button variant="ghost">
                                         <Search className="w-5 h-5" />
                                     </Button>
@@ -253,32 +289,12 @@ export default function Dashboard() {
                                 </div>
                             </div>
 
-                            {/* Grid of Articles */}
-                            <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[300px] gap-4">
-                                {blogPosts.map((post, index) => (
-                                    <div key={index} className="relative overflow-hidden group shadow-md">
-                                        <Image
-                                            src={post.img}
-                                            alt={post.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-black/30" />
-                                        <div className="absolute bottom-0 p-4 z-10 text-white">
-                                            <p className="text-xs uppercase">{post.tag}</p>
-                                            <h3 className="text-lg font-playfair font-semibold">{post.title}</h3>
-                                            <a href={post.link} className="text-sm underline">
-                                                Read article
-                                            </a>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                            {/* Grid of My-Articles */}
+                            <GridMyArticle articleList={myArticleList} />
                         </div>
                     </div>
                 </section>
             </main>
-
         </div>
 
     );
