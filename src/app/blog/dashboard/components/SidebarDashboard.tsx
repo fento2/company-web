@@ -1,13 +1,12 @@
 import {
     FilePen,
-    LogOut,
     UserPen
 } from "lucide-react";
 
 
 export default function SidebarDashboard() {
     return (
-        <aside className="fixed left-0 w-[240px]
+        <aside className="fixed left-0 top-20 w-[240px]
              bg-stone-300 p-6 h-full">
 
             {/* Menu */}

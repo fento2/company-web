@@ -29,43 +29,50 @@ function Navbar() {
     { href: "/teams", label: "Teams" },
   ];
 
-//ngecek udh login saat refresh
-    useEffect(() => {
 
-        const tkn = localStorage.getItem("tkn") || sessionStorage.getItem("tkn");
 
-        const checkLogin = async () => {
-            if (tkn) {
-                try {
-                    const res = await apiCall.get("/accounts", {
-                        params: {
-                            where: `objectId = '${tkn}'`,
-                        },
-                    });
 
-                    const user = res.data[0];
+  const checkLogin = async () => {
 
-                    if (!user) return;
+    const tkn = localStorage.getItem("tkn") || sessionStorage.getItem("tkn");
 
-                    dispatch(
-                        login({
-                            objectId: user.objectId ?? "",
-                            username: user.username ?? "",
-                            firstName: user.firstName ?? "",
-                            lastName: user.lastName ?? "",
-                            isLogin: true,
-                        })
-                    );
+    if (tkn) {
 
-                } catch (error) {
-                    console.error("Auto login failed", error);
-                }
-            }
-        };
+      try {
+        const res = await apiCall.get("/accounts", {
+          params: {
+            where: `objectId = '${tkn}'`,
+          },
+        });
 
-        checkLogin();
-        
-    }, []);
+        const user = res.data[0];
+
+        dispatch(
+          login({
+            objectId: user.objectId ?? "",
+            username: user.username ?? "",
+            firstName: user.firstName ?? "",
+            lastName: user.lastName ?? "",
+            isLogin: true,
+          })
+        );
+
+      } catch (error) {
+        console.error(error);
+      }
+
+
+    } else {
+      return;
+    }
+  };
+
+ 
+  useEffect(() => {
+
+    checkLogin();
+
+  }, []);
 
 
 
@@ -110,7 +117,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      
+
       {/* signin dan sign up */}
       {openSignIn && <SignIn openSignIn={setOpenSignIn} openSignUp={setOpenSignUp} />}
       {openSignUp && <SignUp openSignUp={setOpenSignUp} openSignIn={setOpenSignIn} />}

@@ -115,6 +115,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -124,7 +125,8 @@
 .swiper-button-prev {
   color: rgb(0, 0, 0) !important;
   background-color: rgba(255, 255, 255, 0.5) !important;
-  padding: 25px !important;/* harus important biar ngalahin style swiper*/
+  padding: 25px !important;
+  /* harus important biar ngalahin style swiper*/
 }
 
 .swiper-button-next::after,
@@ -132,3 +134,31 @@
   font-size: 25px !important;
 }
 
+
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Scrollbar Custom */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px; /* horizontal scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e7e5e4; /* Tailwind stone-200 */
+  border-radius: 100vh;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #78716c; /* Tailwind stone-500 */
+  border-radius: 100vh;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #57534e; /* Tailwind stone-600 */
+}

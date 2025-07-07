@@ -19,10 +19,11 @@ export default function ModalUser(props: IModalUser) {
             <ul className="flex flex-col space-y-1">
                 <li>
                     <Link href="/blog/dashboard">
-                        <div className="group flex items-center gap-3 hover:bg-stone-400 transition cursor-pointer px-4 py-3 text-zinc-900">
+                        <div className="group flex items-center gap-3 hover:bg-stone-400 transition cursor-pointer px-4 py-3 text-zinc-900"
+                            onClick={() => props.openModalUser(false)}>
                             <LayoutDashboard className="w-5 h-5" />
                             <span className="font-semibold tracking-wide"
-                                onClick={() => props.openModalUser(false)}>Dashboard</span>
+                            >Dashboard</span>
                         </div>
                     </Link>
                 </li>
@@ -31,15 +32,17 @@ export default function ModalUser(props: IModalUser) {
                     <button
                         className="group flex items-center gap-3 hover:bg-stone-400 hover:text-red-600 transition cursor-pointer px-4 py-3 text-zinc-900 w-full "
                         onClick={() => {
+                            {
+                                dispatch(logout())
+                                localStorage.removeItem("tkn");
+                                sessionStorage.removeItem("tkn");
+                            }
                             props.openModalUser(false);
                         }}
                     >
                         <LogOut className="w-5 h-5" />
                         <span className="font-semibold tracking-wide"
-                            onClick={() => {dispatch(logout())
-                                localStorage.removeItem("tkn");
-                                sessionStorage.removeItem("tkn");
-                            }}>Logout</span>
+                        >Logout</span>
                     </button>
                 </li>
             </ul>

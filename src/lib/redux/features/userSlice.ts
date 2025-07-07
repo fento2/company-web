@@ -6,6 +6,7 @@ interface IAccountState {
   firstName: string;
   lastName: string;
   isLogin: boolean;
+  crearet: string;
 }
 
 const initialState: IAccountState = {
@@ -14,6 +15,7 @@ const initialState: IAccountState = {
   firstName: "",
   lastName: "",
   isLogin: false,
+  crearet:"",
   
 };
 

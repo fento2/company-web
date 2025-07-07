@@ -1,29 +1,42 @@
 "use client"
 
-import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Search } from "lucide-react";
 import Footer from "@/components/ui/core/Footer";
 import { useEffect, useState } from "react";
 import { apiCall } from "@/helper/apiCall";
 import ArticleGrid from "./components/ArticleGrid";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
+import { setArticles } from "@/lib/redux/features/articleSlice";
+import { dataCategory } from "@/helper/dataCategory";
 
 
 export default function BlogPage() {
 
-    const [articleList, setArticleList] = useState<any[]>([]);
 
+
+    const dispatch = useAppDispatch();
+    const articleList = useAppSelector((state) => state.articleSlice.list);
+    const [getCategory, setGetCategory] = useState([
+        "All", ...dataCategory
+    ]);
+
+    const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
     const getAllArticlesList = async () => {
+
         try {
             const res = await apiCall.get("/articles", {
                 params: {
                     pageSize: 15,
-                    sortBy: "created",
-                }
-
+                    sortBy: "`created` desc",
+                    where: "`published` = TRUE",
+                },
             });
-            setArticleList(res.data);
+
+            dispatch(setArticles(res.data));
+
 
         } catch (error) {
             console.log(error);
@@ -35,7 +48,9 @@ export default function BlogPage() {
 
     }, []);
 
-
+    const PrintArticleList = selectedCategory === "All" ? articleList
+        :
+        articleList.filter((value) => value.category === selectedCategory);
 
 
 
@@ -59,34 +74,30 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            <section className="container mx-auto space-y-12 py-16 px-4">
+            <section className="max-w-[800px] mx-auto space-y-12 py-16 px-4">
 
-                <div className="flex justify-center items-center gap-4 text-xs uppercase tracking-wide text-slate-800 font-semibold">
-                    {/* Search Icon */}
-                    <Button className="flex items-center gap-2"
-                        variant="ghost">
-                        <span><Search className="w-12 h-12" /></span>
-                    </Button>
+                <div className="flex items-center gap-4 space-x-4 text-xs uppercase tracking-wide text-slate-800 font-semibold overflow-x-auto pb-2 scrollbar-hide
+                ">
+
+                    <Search className=" w-8 h-8 shrink-0" />
 
 
-                    <div className="h-4 w-px bg-slate-400" />
-
-                    {["What's New", "Iconic Destination", "Gourmet Spirit", "Essentially Kempinski"].map((tab, i, arr) => (
-                        <div key={i} className="flex items-center gap-4">
-                            <Button
-                                variant="ghost" className="hover:underline">{tab}</Button>
-                            {/* Separator kecuali terakhir */}
-                            {i !== arr.length - 1 && <div className="h-4 w-px bg-slate-400" />}
-                        </div>
-                    ))}
-
-
-                    <div className="h-4 w-px bg-slate-400" />
-                    <Button
-                        variant="ghost" className="text-lg"><ChevronDown /></Button>
+                    {/* Category List Manual */}
+                    <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                        {getCategory.map((value, index) => (
+                            <button
+                                key={index}
+                                className={`px-4 py-2 border hover:bg-stone-300 transition text-sm whitespace-nowrap
+                                ${selectedCategory === value ? " bg-stone-300" : ""}`}
+                                onClick={() => setSelectedCategory(value)} >
+                                {value}
+                            </button>
+                        ))}
+                    </div>
                 </div>
+
                 {/* list article */}
-                <ArticleGrid articleList={articleList} />
+                <ArticleGrid articleList={PrintArticleList} />
             </section>
             <Footer />
         </div>
