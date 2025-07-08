@@ -31,7 +31,7 @@ export default function ExplorePage() {
                         Explore
                     </h1>
                     <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
-                        "Explore what makes your stay truly exceptional."
+                        &quot;Explore what makes your stay truly exceptional.&quot;
                     </p>
                 </div>
             </section>

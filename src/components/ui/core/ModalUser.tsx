@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "../button";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { Card } from "../card";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ export default function ModalUser(props: IModalUser) {
         <Card className="absolute right-2 top-25 w-48 bg-stone-300 shadow-lg border-none rounded-none z-50 p-2">
             <ul className="flex flex-col space-y-1">
                 <li>
-                    <Link href="/blog/dashboard">
+                    <Link href="/stories/dashboard">
                         <div className="group flex items-center gap-3 hover:bg-stone-400 transition cursor-pointer px-4 py-3 text-zinc-900"
                             onClick={() => props.openModalUser(false)}>
                             <LayoutDashboard className="w-5 h-5" />

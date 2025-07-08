@@ -3,7 +3,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Button } from "../button";
 import Image from "next/image";
-Image
 
 const testimonials = [
   {

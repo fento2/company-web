@@ -1,19 +1,9 @@
-import { Playfair_Display, Lora } from "next/font/google"
 
-const playfair = Playfair_Display({
-    subsets: ["latin"],
-    variable: "--font-playfair",
-})
-
-const lora = Lora({
-    subsets: ["latin"],
-    variable: "--font-lora",
-})
 
 export default function Guest() {
 
     return (
-        <div className={`${playfair.variable} ${lora.variable}`}>
+        <div>
             {/* Why Choose Us Section */}
             <section className="relative overflow-hidden py-20 px-4 md:px-6">
                 <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center bg-stone-300 p-8">

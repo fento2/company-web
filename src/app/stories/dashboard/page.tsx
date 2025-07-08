@@ -1,11 +1,8 @@
 "use client"
 
 import SidebarDashboard from "./components/SidebarDashboard";
-import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { apiCall } from "@/helper/apiCall";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { BookCheck, FileClock, Search } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/redux/hook";
@@ -49,26 +46,37 @@ export default function Dashboard() {
         }
     };
 
-    const BtCreateArticle = async (published:boolean) => {
+    function toSlug(title: string): string { // biar SEO friendly
+        const baseSlug = title
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, "-");
 
+        return `${baseSlug}-${Date.now()}`;
+    }
+
+
+
+    const BtCreateArticle = async (published: boolean) => {
         if (formArticle.current && getCategory.current) {
             const inputCreate = new FormData(formArticle.current);
+            const title = inputCreate.get("title") as string;
+
+            const slug = toSlug(title);
 
             try {
                 const res = await apiCall.post("/articles", {
-                    title: inputCreate.get("title"),
+                    title,
+                    slug,
                     thumbnail: inputCreate.get("thumbnail"),
                     content: inputCreate.get("content"),
                     category: getCategory.current,
                     author: username,
-                    published:published,
-
+                    published,
                 });
 
                 console.log(res);
                 toast.success("Article uploaded successfully!");
-
-
             } catch (error) {
                 console.log(error);
                 toast.error("Failed to upload article.");
@@ -77,38 +85,32 @@ export default function Dashboard() {
             formArticle.current?.reset();
             setSelectedCategory(undefined);
             getCategory.current = null;
-
             getMyArticleList();
-
-
-
         } else {
             toast.error("Please complete all required fields.");
-
         }
+    };
 
-    }
 
     const BtEditArticle = async (objectId: string, published: boolean) => {
-
         if (formArticle.current && getCategory.current) {
             const inputCreate = new FormData(formArticle.current);
+            const title = inputCreate.get("title") as string;
+            const slug = toSlug(title);
 
             try {
                 const res = await apiCall.put(`/articles/${objectId}`, {
-                    title: inputCreate.get("title"),
+                    title,
+                    slug,
                     thumbnail: inputCreate.get("thumbnail"),
                     content: inputCreate.get("content"),
                     category: getCategory.current,
-                    published: published,
-
+                    published,
                 });
 
                 console.log(res);
-                toast.success("Article update successfully!");
+                toast.success("Article updated successfully!");
                 dispatch(clearEditArticle());
-
-
             } catch (error) {
                 console.log(error);
                 toast.error("Failed to update article.");
@@ -117,17 +119,11 @@ export default function Dashboard() {
             formArticle.current?.reset();
             setSelectedCategory(undefined);
             getCategory.current = null;
-
             getMyArticleList();
-
-
-
         } else {
             toast.error("Please complete all required fields.");
-
         }
-
-    }
+    };
 
     useEffect(() => {
         const tkn = sessionStorage.getItem("tkn");
@@ -150,44 +146,44 @@ export default function Dashboard() {
 
 
     return (
-        <div>
-  {/* Sidebar */}
-  <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
-    <SidebarDashboard />
-  </aside>
+        <section className=" bg-stone-200">
+            {/* Sidebar */}
+            <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
+                <SidebarDashboard />
+            </aside>
 
-  {/* Main Content */}
-  <main className="bg-stone-100 min-h-screen w-full">
-    <section className="lg:ml-[240px] p-8 space-y-12">
-      {/* Header */}
-      <div className="space-y-1">
-        <h1 className="text-zinc-900 text-sm">
-          Dashboard <span className="text-blue-900 font-bold">/ My Article</span>
-        </h1>
-        <h2 className="text-4xl font-bold tracking-wider text-slate-800">My Article</h2>
-      </div>
+            {/* Main Content */}
+            <main className=" min-h-screen w-full pt-18">
+                <section className="lg:ml-[240px] p-8 space-y-12">
+                    {/* Header */}
+                    <div className="space-y-1">
+                        <h1 className="text-zinc-900 text-sm">
+                            Dashboard <span className="text-blue-900 font-bold">/ My Article</span>
+                        </h1>
+                        <h2 className="text-4xl font-bold tracking-wider text-slate-800">My Article</h2>
+                    </div>
 
-      {/* Form + Grid */}
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-        {/* Form Section */}
-        <FormSection
-          BtEditArticle={BtEditArticle}
-          BtCreateArticle={BtCreateArticle}
-          formArticle={formArticle}
-          getCategory={getCategory}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
+                    {/* Form + Grid */}
+                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+                        {/* Form Section */}
+                        <FormSection
+                            BtEditArticle={BtEditArticle}
+                            BtCreateArticle={BtCreateArticle}
+                            formArticle={formArticle}
+                            getCategory={getCategory}
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}
+                        />
 
-        {/* Article List */}
-        <GridMyArticle
-          articleList={myArticleList}
-          getMyArticleList={getMyArticleList}
-        />
-      </div>
-    </section>
-  </main>
-</div>
+                        {/* Article List */}
+                        <GridMyArticle
+                            articleList={myArticleList}
+                            getMyArticleList={getMyArticleList}
+                        />
+                    </div>
+                </section>
+            </main>
+        </section>
 
 
     );

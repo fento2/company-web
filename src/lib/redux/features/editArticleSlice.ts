@@ -14,7 +14,8 @@ const initialState: EditArticleState = {
   author: "",
   published: true,
   isEditing: false,
-  created:"",
+  created: "",
+  slug: ""
 };
 
 
@@ -22,7 +23,7 @@ const editArticleSlice = createSlice({
   name: "editArticle",
   initialState,
   reducers: {
-    setEditArticle: (state, action: PayloadAction<EditArticleState>) => { 
+    setEditArticle: (state, action: PayloadAction<EditArticleState>) => {
       return {
         ...action.payload,
       };

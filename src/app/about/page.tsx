@@ -1,19 +1,8 @@
-import Footer from "@/components/ui/core/Footer";
-import { Playfair_Display, Lora } from "next/font/google";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-lora",
-});
 
 export default function AboutPage() {
   return (
-    <div className={`${playfair.variable} ${lora.variable} bg-stone-500`}>
+    <div className={` bg-stone-500`}>
       {/* Section 1: About Us */}
       <section className="h-[400px] relative 
            bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
@@ -22,12 +11,12 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/50 z-0" />
 
         {/* Content */}
-        <div className="relative z-10">
+        <div className="relative z-10 mt-16">
           <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
             About Grand Villia
           </h1>
           <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
-            "Crafting memories with passion, recognized with pride."
+            &quot;Crafting memories with passion, recognized with pride.&quot;
           </p>
         </div>
       </section>
@@ -124,7 +113,6 @@ export default function AboutPage() {
         </div>
 
       </section>
-    <Footer/>
     </div>
   );
 }

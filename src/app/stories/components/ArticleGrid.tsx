@@ -1,37 +1,23 @@
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 
 import Image from "next/image"
 
 import { IArticle } from "@/helper/article";
 import { ChevronRight, MoveRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface IArticleList {
     articleList: IArticle[];
 
 }
 
-const layoutPattern = [
-    "", // 0
-    "", // 1
-    "", // 2
-    "", // 3
-    "", // 4
-    "", // 5
-    "", // 6
-    "", // 7
-    "", // 8
-    "", // 9
-    "", // 10
-    "", // 11
-    "", // 12
-    "", // 13
-    "", // 14
-];
 
 export default function ArticleGrid({ articleList }: IArticleList) {
-    const [showReadMore, setShowReadMore] = useState(false);
+    const router = useRouter();
+
+
+
 
     return (
         <div>
@@ -42,9 +28,9 @@ export default function ArticleGrid({ articleList }: IArticleList) {
                             <div
                                 key={index}
                                 className={`
-                                             relative overflow-hidden group
+                                             relative overflow-hidden group cursor-pointer
                                           ${index === 0 ? "md:col-span-2" : ""}`}
-                            >
+                                onClick={() => router.push(`/articles/${(value.slug)}`)}>
                                 <Image
                                     src={value.thumbnail}
                                     alt={value.title}
@@ -81,12 +67,12 @@ export default function ArticleGrid({ articleList }: IArticleList) {
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="absolute bottom-0 left-0 right-0 py-8 z-10 bg-stone-100 text-slate-800 w-full h-auto">
+                                    <div className="absolute bottom-0 left-0 right-0 py-6 z-10 bg-stone-100 text-slate-800 w-full h-auto">
                                         <p className="text-xs uppercase text-stone-500 font-bold">{value.category}</p>
                                         <h3 className="text-2xl font-normal break-words leading-snug tracking-tighter font-serif">
                                             {value.title}
                                         </h3>
-                                        <a className="text-sm underline">Read article</a>
+                                        <a className="text-sm underline cursor-pointer">Read article</a>
                                     </div>
                                 )}
                             </div>
@@ -96,14 +82,7 @@ export default function ArticleGrid({ articleList }: IArticleList) {
             </div>
 
             <div className="flex justify-end my-2">
-                {showReadMore && (
-                    <Button
-                        variant="ghost"
-                        className="border border-stone-500 rounded-none hover:bg-stone-500"
-                    >
-                        Read More
-                    </Button>
-                )}
+               
             </div>
         </div>
     );

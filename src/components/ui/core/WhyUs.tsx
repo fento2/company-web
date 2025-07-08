@@ -7,22 +7,22 @@ import 'swiper/css/pagination';
 
 const slides = [
   {
-    image: '/images/suite1.jpg',
+    image: '/home/suite1.webp',
     title: 'Elegant Rooms',
     description: 'Luxuriously appointed accommodations designed with your comfort and sophistication in mind.',
   },
   {
-    image: '/images/location.jpg',
+    image: '/home/location.webp',
     title: 'Serene Location',
     description: 'Nestled in a tranquil setting that offers the perfect escape from the bustling city life.',
   },
   {
-    image: '/images/service.jpg',
+    image: '/home/service.webp',
     title: 'Personalized Service',
     description: 'Attentive staff dedicated to anticipating your needs and exceeding your expectations.',
   },
   {
-    image: '/images/food.jpg',
+    image: '/home/food.webp',
     title: 'Authentic Culinary Experience',
     description: 'Savor exquisite dishes crafted by our renowned chefs using the finest local ingredients.',
   },

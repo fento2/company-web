@@ -4,10 +4,10 @@ import { Input } from "../input";
 import { Label } from "../label";
 import { Button } from "../button";
 import { X, Eye, EyeOff } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { apiCall } from "@/helper/apiCall";
 import { toast } from "sonner";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
+import { useAppDispatch} from "@/lib/redux/hook";
 import { login } from "@/lib/redux/features/userSlice";
 import { Checkbox } from "../checkbox";
 interface ISignIn {
@@ -145,7 +145,7 @@ export default function SignIn(props: ISignIn) {
 
                     <CardFooter>
                         <p className="text-sm text-center text-slate-600">
-                            Don't have an account?{" "}
+                            Don&apos;t have an account?{" "}
                             <span
                                 className="text-stone-600 hover:underline cursor-pointer"
                                 onClick={() => {

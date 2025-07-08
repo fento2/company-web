@@ -1,9 +1,7 @@
 "use client"
 
+import {  Search } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { ChevronDown, Search } from "lucide-react";
-import Footer from "@/components/ui/core/Footer";
 import { useEffect, useState } from "react";
 import { apiCall } from "@/helper/apiCall";
 import ArticleGrid from "./components/ArticleGrid";
@@ -18,7 +16,7 @@ export default function BlogPage() {
 
     const dispatch = useAppDispatch();
     const articleList = useAppSelector((state) => state.articleSlice.list);
-    const [getCategory, setGetCategory] = useState([
+    const [getCategory] = useState([
         "All", ...dataCategory
     ]);
 
@@ -64,12 +62,12 @@ export default function BlogPage() {
                 <div className="absolute inset-0 bg-black/50 z-0" />
 
                 {/* Content */}
-                <div className="relative z-10">
+                <div className="relative z-10 mt-16">
                     <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
                         Traveling In Style
                     </h1>
                     <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
-                        "Explore what makes your stay truly exceptional."
+                        &quot;Explore what makes your stay truly exceptional.&quot;
                     </p>
                 </div>
             </section>
@@ -99,7 +97,6 @@ export default function BlogPage() {
                 {/* list article */}
                 <ArticleGrid articleList={PrintArticleList} />
             </section>
-            <Footer />
         </div>
     );
 }

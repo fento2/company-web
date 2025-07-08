@@ -7,4 +7,5 @@ export interface IArticle {
   author: string;
   published: boolean;
   created: string;
+  slug:string;
 }

@@ -1,5 +1,29 @@
+
+"use client";
+
+
+
 import { BsInstagram, BsWhatsapp } from "react-icons/bs";
-import {FaFacebookSquare} from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+
+export function ConditionalFooter() {
+    const pathname = usePathname();
+
+    const hideFooter = pathname.startsWith("/blog/dashboard"); //hide footer jika url starwith blog/dashboard
+
+    if (hideFooter) return null;
+
+    return <Footer />;
+}
+
+
+
+
+
 export default function Footer() {
     return (
         <div>
@@ -17,10 +41,10 @@ export default function Footer() {
                     {/* Navigation */}
                     <div className="flex flex-col gap-2">
                         <h4 className="text-lg font-semibold mb-2">Navigation</h4>
-                        <a href="/" className="hover:text-stone-400 transition">Home</a>
-                        <a href="/about" className="hover:text-stone-400 transition">About</a>
-                        <a href="/facilities" className="hover:text-stone-400 transition">Facilities</a>
-                        <a href="/contact" className="hover:text-stone-400 transition">Contact</a>
+                        <Link href="/" className="hover:text-stone-400 transition">Home</Link>
+                        <Link href="/about" className="hover:text-stone-400 transition">About</Link>
+                        <Link href="/facilities" className="hover:text-stone-400 transition">Facilities</Link>
+                        <Link href="/contact" className="hover:text-stone-400 transition">Contact</Link>
                     </div>
 
                     {/* Contact */}
@@ -31,12 +55,15 @@ export default function Footer() {
                         <p>Phone: +62 812-3456-7890</p>
 
                         {/* Socials */}
-                        <div className="flex gap-4 mt-4">
-                            <a href="#" className="hover:text-stone-400 transition"><BsInstagram/></a>
-                            <a href="#" className="hover:text-stone-400 transition"><FaFacebookSquare/></a>
-                            <a href="#" className="hover:text-stone-400 transition"><BsWhatsapp/></a>
+                        <div className="flex gap-4 mt-4 mb-4">
+                            <a href="#" className="hover:text-stone-400 transition"><BsInstagram /></a>
+                            <a href="#" className="hover:text-stone-400 transition"><FaFacebookSquare /></a>
+                            <a href="#" className="hover:text-stone-400 transition"><BsWhatsapp /></a>
                         </div>
+
+
                     </div>
+
                 </div>
 
                 {/* Bottom */}

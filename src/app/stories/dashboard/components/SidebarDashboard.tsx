@@ -6,8 +6,8 @@ import {
 
 export default function SidebarDashboard() {
     return (
-        <aside className="fixed left-0 top-20 w-[240px]
-             bg-stone-300 p-6 h-full">
+        <aside className="w-[240px]
+             bg-stone-300 p-6 h-full pt-26">
 
             {/* Menu */}
             <ul className="space-y-1">
