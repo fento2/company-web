@@ -3,17 +3,18 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Button } from "../button";
 import Image from "next/image";
+import Link from "next/link";
 
 const testimonials = [
   {
     name: "Meetings",
     message: "As a comfort city resort designed for both business and pleasure.",
-    image: "/images/meeting.webp",
+    image: "/home/meeting.webp",
   },
   {
     name: "Weddings",
     message: "Feel the bloom of love and draw your unforgettable BIG day memories.",
-    image: "/images/testimonial.webp",
+    image: "/home/testimonial.webp",
 
   },
 ];
@@ -48,9 +49,12 @@ export default function Testimonials() {
                 <p className="text-xl font-lora tracking-widest">{guest.name}</p>
                 <p className="text-sm tracking-widest font-lora">{guest.message}</p>
                 <div className="flex">
+                
                   <Button variant="link"
                     className="rounded-none bg-stone-950
-                 text-stone-50 ml-auto">LEARN MORE</Button></div>
+                 text-stone-50 ml-auto">
+                  <Link href="/facilities"> LEARN MORE
+                  </Link></Button></div>
               </div>
             </div>
           ))}

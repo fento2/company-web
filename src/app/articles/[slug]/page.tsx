@@ -30,7 +30,7 @@ export default async function Page({ params }: PageProps ) {
   if (!detailData) return <div className="text-center py-20">Article not found.</div>;
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto py-30">
       <div className="grid grid-cols-4 gap-8 mx-12 my-8">
 
         <div className="col-span-3 flex justify-center text-gray-800 font-sans">

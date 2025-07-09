@@ -14,7 +14,7 @@ interface IModalUser {
 export default function ModalUser(props: IModalUser) {
     const dispatch = useDispatch();
     return (
-        <Card className="absolute right-2 top-25 w-48 bg-stone-300 shadow-lg border-none rounded-none z-50 p-2">
+        <Card className="absolute right-2 top-25 w-48 bg-stone-200 shadow-lg border-none rounded-none z-50 p-2">
             <ul className="flex flex-col space-y-1">
                 <li>
                     <Link href="/stories/dashboard">

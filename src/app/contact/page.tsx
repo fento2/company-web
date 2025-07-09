@@ -1,21 +1,12 @@
-import { Playfair_Display, Lora } from "next/font/google";
+
 import Image from "next/image";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-lora",
-});
 
 export default function ContactPage() {
   return (
-    <div className={`${playfair.variable} ${lora.variable} bg-stone-500`}>
+    <div className={` bg-stone-500`}>
       {/* Hero Section */}
-      <section className="h-[400px] relative bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
+      <section className="h-[400px] relative bg-[url('/contact/contact.webp')] bg-cover bg-center py-20 text-center">
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="relative z-10 mt-16">
           <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">

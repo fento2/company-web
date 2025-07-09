@@ -54,7 +54,7 @@ export default async function TeamsPage() {
     <div className={`bg-stone-100`}>
       <section
         className="h-[400px] relative 
-        bg-[url('/images/team.webp')] bg-cover bg-center py-20 text-center"
+        bg-[url('/teams/teams.webp')] bg-cover bg-center py-20 text-center"
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="relative z-10 mt-16">

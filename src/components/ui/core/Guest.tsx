@@ -34,7 +34,7 @@ export default function Guest() {
                     {/*Parallax Image */}
                     <div
                         className="md:h-[800px] h-[400px] shadow-lg 
-                        bg-[url('/images/lobby_hotel.webp')] 
+                        bg-[url('/home/guest.webp')] 
                         bg-fixed bg-cover bg-center"
                     />
                 </div>

@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 
 const slides = [
   {
-    image: '/home/suite1.webp',
+    image: '/home/rooms.webp',
     title: 'Elegant Rooms',
     description: 'Luxuriously appointed accommodations designed with your comfort and sophistication in mind.',
   },

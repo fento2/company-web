@@ -1,6 +1,6 @@
 "use client"
 
-import {  Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { apiCall } from "@/helper/apiCall";
@@ -55,21 +55,25 @@ export default function BlogPage() {
     return (
         <div className="bg-stone-100">
 
-            <section className="h-[400px] relative 
-           bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
-
+            <section
+                className="h-[400px] relative bg-cover bg-center py-20 text-center"
+                style={{
+                    backgroundImage: `url(${articleList[0]?.thumbnail})`,
+                }}
+            >
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/50 z-0" />
 
                 {/* Content */}
                 <div className="relative z-10 mt-16">
                     <h1 className="text-5xl font-playfair text-stone-50 tracking-widest font-bold">
-                        Traveling In Style
+                        Stories
                     </h1>
                     <p className="mt-4 text-xl text-stone-50 font-lora tracking-widest italic">
-                        &quot;Explore what makes your stay truly exceptional.&quot;
+                        &quot;Inspiration, insights, and tales from Grand Villia and beyond.&quot;
                     </p>
                 </div>
+
             </section>
 
             <section className="max-w-[800px] mx-auto space-y-12 py-16 px-4">

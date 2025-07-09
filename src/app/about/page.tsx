@@ -5,7 +5,7 @@ export default function AboutPage() {
     <div className={` bg-stone-500`}>
       {/* Section 1: About Us */}
       <section className="h-[400px] relative 
-           bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
+           bg-[url('/about/about.webp')] bg-cover bg-center py-20 text-center">
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 z-0" />
@@ -26,7 +26,7 @@ export default function AboutPage() {
         <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-center bg-stone-300 p-8 shadow-md">
           <div
             className="md:h-[800px] h-[400px] shadow-lg 
-            bg-[url('/images/about.webp')] 
+            bg-[url('/about/ourstory.webp')] 
             bg-fixed bg-cover bg-center"
           />
           {/* Text Side */}
@@ -97,7 +97,7 @@ export default function AboutPage() {
 
 
           <div className="relative md:h-[800px] h-[400px] 
-         shadow-lg bg-[url('/images/award.webp')] 
+         shadow-lg bg-[url('/about/award.webp')] 
          bg-cover bg-center">
             <div className="absolute -right-15 -bottom-15 
              bg-stone-200 px-10 py-8 shadow-xl mx-4">

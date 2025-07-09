@@ -1,6 +1,6 @@
 "use client";
 
-import { Playfair_Display, Lora } from "next/font/google";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
@@ -10,35 +10,32 @@ import ExplorePage from "./components/Explore";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 
 const ourRooms = [
   {
     title: "Suite Room",
-    img: ["/images/suite1.webp", "/images/suite1.webp", "/images/suite1.webp"],
+    img: ["/facilities/suite1.webp", "/facilities/suite2.jpg", "/facilities/suite3.jpg"],
     desc: "A spacious and elegantly designed suite featuring a separate living room and dining area, perfect for both relaxation and entertaining guests. The room is adorned with modern furnishings and soft lighting to create a warm and inviting atmosphere. Ideal for couples or solo travelers seeking extra space and comfort, this suite can comfortably accommodate up to 2 guests. Every detail is thoughtfully curated to offer a luxurious yet homely experience, making it your perfect retreat in the heart of Grand Villia.",
   },
   {
     title: "Deluxe Room",
-    img: ["/images/suite1.webp", "/images/suite1.webp", "/images/suite1.webp"],
+    img: ["/facilities/duluxe1.jpg", "/facilities/duluxe2.jpg", "/facilities/duluxe3.jpg"],
     desc: "Designed with a blend of modern style and cozy elegance, our Deluxe Room provides a comfortable and functional space for every guest. Equipped with premium amenities such as a safety deposit box, minibar, high-speed Wi-Fi, and a flat-screen TV, this room is ideal for both business travelers and vacationers. Soft lighting, warm tones, and elegant details create a relaxing atmosphere where you can unwind after a day of adventure or meetings. The Deluxe Room promises a restful and enjoyable stay with all the essentials you need within reach.",
   },
   {
     title: "Superior Room",
-    img: ["/images/suite1.webp", "/images/suite1.webp", "/images/suite1.webp"],
+    img: ["/facilities/superior1.avif", "/facilities/superior2.jpg", "/facilities/superior3.jpg"],
     desc: "Our Superior Room offers a perfect balance between simplicity and comfort. Featuring a choice of 1 double bed or 2 twin beds, along with a functional work desk and cozy seating, this room is designed to meet your basic needs without compromising on style. Ideal for solo travelers or friends, the Superior Room provides a peaceful environment with a warm ambiance and thoughtful touches to ensure a pleasant stay. Whether you're in town for business or leisure, this room is a smart and welcoming choice.",
   },
 ];
 
 const Facilities = [
-  { img: "/images/about.webp", title: "Lobby", desc: "Spacious and welcoming lobby with comfortable seating and concierge services." },
-  { img: "/images/about.webp", title: "Restaurant", desc: "Elegant dining with local and international cuisine served fresh daily." },
-  { img: "/images/about.webp", title: "Bar, Cafe & Lounge", desc: "Relaxed atmosphere for drinks, snacks, and casual meetings." },
-  { img: "/images/about.webp", title: "Swimming Pool", desc: "Crystal-clear pool ideal for both recreation and relaxation." },
-  { img: "/images/about.webp", title: "Functional Hall", desc: "Versatile hall for events, meetings, or private functions." },
+  { img: "/facilities/lobby.webp", title: "Lobby", desc: "Spacious and welcoming lobby with comfortable seating and concierge services." },
+  { img: "/facilities/restaurant.jpeg", title: "Restaurant", desc: "Elegant dining with local and international cuisine served fresh daily." },
+  { img: "/facilities/bar.jpeg", title: "Bar, Cafe & Lounge", desc: "Relaxed atmosphere for drinks, snacks, and casual meetings." },
+  { img: "/facilities/pool.jpg", title: "Swimming Pool", desc: "Crystal-clear pool ideal for both recreation and relaxation." },
+  { img: "/facilities/functional hall.jpeg", title: "Functional Hall", desc: "Versatile hall for events, meetings, or private functions." },
 ];
 
 export default function FacilitiesPage() {
@@ -49,8 +46,8 @@ export default function FacilitiesPage() {
   const [selectedFacilityIndex, setSelectedFacilityIndex] = useState(0);
 
   return (
-    <div className={`${playfair.variable} ${lora.variable} bg-stone-100`}>
-      <section className="h-[400px] relative bg-[url('/images/lobby_hotel.webp')] bg-cover bg-center py-20 text-center">
+    <div className={` bg-stone-100`}>
+      <section className="h-[400px] relative bg-[url('/facilities/rooms.webp')] bg-cover bg-center py-20 text-center">
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="relative z-10 mt-16">
           <h1 className="text-5xl font-playfair text-white font-bold tracking-widest">Rooms & Facilities</h1>
