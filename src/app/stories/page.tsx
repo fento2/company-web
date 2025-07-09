@@ -8,12 +8,13 @@ import ArticleGrid from "./components/ArticleGrid";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
 import { setArticles } from "@/lib/redux/features/articleSlice";
 import { dataCategory } from "@/helper/dataCategory";
+import SearchArticle from "./components/SearchArticle";
 
 
 export default function BlogPage() {
 
 
-
+    const [showSearch, setShowSearch] = useState(false);
     const dispatch = useAppDispatch();
     const articleList = useAppSelector((state) => state.articleSlice.list);
     const [getCategory] = useState([
@@ -81,8 +82,8 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 space-x-4 text-xs uppercase tracking-wide text-slate-800 font-semibold overflow-x-auto pb-2 scrollbar-hide
                 ">
 
-                    <Search className=" w-8 h-8 shrink-0" />
-
+                    <Search className=" w-8 h-8 shrink-0 cursor-pointer" onClick={() => setShowSearch(true)} />
+                    {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch}/>}
 
                     {/* Category List Manual */}
                     <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">

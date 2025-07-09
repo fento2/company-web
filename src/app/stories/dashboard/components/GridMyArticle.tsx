@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ManageArticle from "./ManageArticle";
 import { BookCheck, EllipsisVertical, FileClock, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IArticle } from "@/helper/article";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
 import { setEditArticle } from "@/lib/redux/features/editArticleSlice";
@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import SearchArticle from "../../components/SearchArticle";
 
 
 interface IGridMyArticle {
@@ -33,7 +34,7 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
 
   const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
   const [selectPublished, setSelectedPublished] = useState<"published" | "draft">("published");
-
+  const [showSearch, setShowSearch] = useState(false);
   const router = useRouter()
 
   const BtDelateArticle = async () => {
@@ -56,26 +57,34 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
     }
   });
 
+  useEffect(() => {
+
+    setShowSearch(false);
+
+  }, [isEditing])
+
+
   return (
     <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
 
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between flex-col md:flex-row tems-center">
-          <div className="flex space-x-6">
-            <div className={`text-lg md:text-2xl font-bold text-slate-800 flex items-center gap-2 ${selectPublished === "published" ? "bg-stone-300" : ""} py-2 px-6 cursor-pointer
+        <div className="flex justify-between flex-col md:flex-row">
+          <div className="flex space-x-2">
+            <div className={`text-ms font-bold text-slate-800 flex items-center gap-2 ${selectPublished === "published" ? "bg-stone-300" : ""} py-2 px-6 cursor-pointer
             hover:bg-stone-300`}
               onClick={() => setSelectedPublished("published")}>
               <BookCheck /> <span>Published</span>
             </div>
-            <div className={`text-lg md:text-2xl font-bold text-slate-800 flex items-center gap-2 py-2 px-6 ${selectPublished === "draft" ? "bg-stone-300" : ""} hover:bg-stone-300 cursor-pointer`}
+            <div className={`text-md font-bold text-slate-800 flex items-center gap-2 py-2 px-6 ${selectPublished === "draft" ? "bg-stone-300" : ""} hover:bg-stone-300 cursor-pointer`}
               onClick={() => setSelectedPublished("draft")}>
               <FileClock /> <span>Draft</span>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
-            <Button variant="ghost">
+            <Button variant="ghost" className="bg-none hover:bg-transparant cursor-pointer"
+              onClick={() => setShowSearch(true)}>
               <Search className="w-5 h-5" />
             </Button>
             <Select
@@ -92,6 +101,9 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
             </Select>
           </div>
         </div>
+
+        {/* ini modal search */}
+        {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch} setShowManageArticle={setShowManageArticle} />}
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[400px]">

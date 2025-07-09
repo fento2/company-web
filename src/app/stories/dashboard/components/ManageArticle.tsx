@@ -18,7 +18,7 @@ export default function ManageArticle(props: IManageArticle) {
 
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
             <div className="relative w-[320px]">
                 <Card className="p-6 shadow-2xl rounded-none bg-stone-300 border-none">
                     <h2 className="text-xl font-bold text-slate-800 text-center">Manage Article</h2>

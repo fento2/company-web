@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setMyArticles } from "@/lib/redux/features/myarticleSlice";
 import FormSection from "./components/FormSection";
 import { clearEditArticle } from "@/lib/redux/features/editArticleSlice";
+import Profile from "./components/Profile";
 
 
 
@@ -24,7 +25,7 @@ export default function Dashboard() {
     const username = useAppSelector((state) => state.accountReducer.username);
     const dispatch = useDispatch()
     const myArticleList = useAppSelector((state) => state.myArticleSlice.list);
-
+    const [profile, setProfile] = useState(false);
 
 
     const getMyArticleList = async () => {
@@ -146,44 +147,49 @@ export default function Dashboard() {
 
 
     return (
-        <section className=" bg-stone-200">
-            {/* Sidebar */}
-            <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
-                <SidebarDashboard />
-            </aside>
 
-            {/* Main Content */}
-            <main className=" min-h-screen w-full pt-18">
-                <section className="lg:ml-[240px] p-8 space-y-12">
-                    {/* Header */}
-                    <div className="space-y-1">
-                        <h1 className="text-zinc-900 text-sm">
-                            Dashboard <span className="text-blue-900 font-bold">/ My Article</span>
-                        </h1>
-                        <h2 className="text-4xl font-bold tracking-wider text-slate-800">My Article</h2>
-                    </div>
+        <>
+            <section className=" bg-stone-200">
+                {/* sidebar */}
+                <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
+                    <SidebarDashboard setProfile={setProfile} profile={profile}/>
+                </aside>
 
-                    {/* Form + Grid */}
-                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-                        {/* Form Section */}
-                        <FormSection
-                            BtEditArticle={BtEditArticle}
-                            BtCreateArticle={BtCreateArticle}
-                            formArticle={formArticle}
-                            getCategory={getCategory}
-                            selectedCategory={selectedCategory}
-                            setSelectedCategory={setSelectedCategory}
-                        />
+                {/* my article */}
+                {!profile && <main className=" min-h-screen w-full pt-18">
+                    <section className="lg:ml-[240px] p-8 space-y-12">
+                        {/* Header */}
+                        <div className="space-y-1">
+                            <h1 className="text-zinc-900 text-sm">
+                                Dashboard <span className="text-blue-900 font-bold">/ My Article</span>
+                            </h1>
+                            <h2 className="text-4xl font-bold tracking-wider text-slate-800">My Article</h2>
+                        </div>
 
-                        {/* Article List */}
-                        <GridMyArticle
-                            articleList={myArticleList}
-                            getMyArticleList={getMyArticleList}
-                        />
-                    </div>
-                </section>
-            </main>
-        </section>
+                        {/* Form + Grid */}
+                        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+                            {/* Form Section */}
+                            <FormSection
+                                BtEditArticle={BtEditArticle}
+                                BtCreateArticle={BtCreateArticle}
+                                formArticle={formArticle}
+                                getCategory={getCategory}
+                                selectedCategory={selectedCategory}
+                                setSelectedCategory={setSelectedCategory}
+                            />
+
+                            {/* Article List */}
+                            <GridMyArticle
+                                articleList={myArticleList}
+                                getMyArticleList={getMyArticleList}
+                            />
+                        </div>
+                    </section>
+                </main>}
+            </section>
+
+            {profile && <Profile/>}
+        </>
 
 
     );
