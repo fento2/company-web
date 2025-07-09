@@ -8,7 +8,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { EllipsisVertical } from "lucide-react";
 import { useAppDispatch } from "@/lib/redux/hook";
-import { setEditArticle, setIsEditing } from "@/lib/redux/features/editArticleSlice";
+import { setEditArticle } from "@/lib/redux/features/editArticleSlice";
 
 
 interface ISearchArticle {
