@@ -27,7 +27,7 @@ export default function BlogPage() {
         try {
             const res = await apiCall.get("/articles", {
                 params: {
-                    pageSize: 15,
+                    pageSize: 100,
                     sortBy: "`created` desc",
                     where: "`published` = TRUE",
                 },

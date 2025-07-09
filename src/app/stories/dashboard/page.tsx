@@ -31,7 +31,7 @@ export default function Dashboard() {
         try {
             const res = await apiCall.get("/articles", {
                 params: {
-                    pageSize: 15,
+                    pageSize: 100,
                     offset: 0,
                     sortBy: "`created` desc",
                     where: `author = '${username}'`,

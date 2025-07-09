@@ -11,7 +11,7 @@ export default async function RelatedArticle({ article }: RelatedArticleProps) {
   
   const res = await apiCall.get("/articles", {
     params: {
-      pageSize: 15,
+      pageSize: 100,
       sortBy: "created desc",
       where: `category = '${article.category}' AND objectId != '${article.objectId}'`,// jangan nampilin yang di klik
     },
