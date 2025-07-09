@@ -58,7 +58,7 @@ export default function BlogPage() {
             <section
                 className="h-[400px] relative bg-cover bg-center py-20 text-center"
                 style={{
-                    backgroundImage: `url(${articleList[0]?.thumbnail})`,
+                    backgroundImage: `url('/article.jpg')`,
                 }}
             >
                 {/* Overlay */}

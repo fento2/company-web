@@ -27,13 +27,11 @@ export default async function Page({ params }: PageProps ) {
   const {slug} =  await params;
   const detailData = await getDetail(slug);
 
-  if (!detailData) return <div className="text-center py-20">Article not found.</div>;
-
   return (
     <div className="container mx-auto py-30">
-      <div className="grid grid-cols-4 gap-8 mx-12 my-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-12 my-8">
 
-        <div className="col-span-3 flex justify-center text-gray-800 font-sans">
+        <div className="md:col-span-3 flex justify-center text-gray-800 font-sans">
           <div className="w-full space-y-8">
             <h1 className="text-4xl md:text-5xl font-bold">{detailData.title}</h1>
 
@@ -60,7 +58,7 @@ export default async function Page({ params }: PageProps ) {
             </div>
 
 
-            <div className="prose prose-stone max-w-none">
+            <div className=" max-w-none">
               {detailData.content
                 .split("\n")
                 .filter((value: string) => value.trim() !== "")

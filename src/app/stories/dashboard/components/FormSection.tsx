@@ -176,26 +176,29 @@ export default function FormSection({
                     </CardContent>
 
                     <CardFooter>
-                        {isEditing && <Button
-                            variant="ghost"
-                            type="button"
-                            className="bg-stone-300 rounded-none w-60 mx-auto hover:bg-red-600"
-                            onClick={() => {dispatch(clearEditArticle())
-                                formArticle.current?.reset();
-                                setSelectedCategory(undefined);
-                                getCategory.current = null;
-                            }}
-                        >
-                            Cancel
-                        </Button>}
-                        <Button
-                            variant="ghost"
-                            type="button"
-                            className="bg-stone-300 rounded-none w-60 mx-auto hover:bg-stone-400"
-                            onClick={handleButton}
-                        >
-                            {isEditing ? "Update" : "Upload"}
-                        </Button>
+                        <div className="flex flex-col-reverse md:flex-row mx-auto gap-5">
+                            {isEditing && <Button
+                                variant="ghost"
+                                type="button"
+                                className="bg-stone-300 rounded-none w-60 mx-auto hover:bg-red-600"
+                                onClick={() => {
+                                    dispatch(clearEditArticle())
+                                    formArticle.current?.reset();
+                                    setSelectedCategory(undefined);
+                                    getCategory.current = null;
+                                }}
+                            >
+                                Cancel
+                            </Button>}
+                            <Button
+                                variant="ghost"
+                                type="button"
+                                className="bg-stone-300 rounded-none w-60 mx-auto hover:bg-stone-400"
+                                onClick={handleButton}
+                            >
+                                {isEditing ? "Update" : "Upload"}
+                            </Button>
+                        </div>
                     </CardFooter>
                 </Card>
             </form>
