@@ -88,7 +88,7 @@ export default function ExplorePage() {
                             Want to know more about our offerings?
                         </p>
                         <a
-                            href="/files/grand-villia-brochure.pdf"
+                            href="/files/Paket Tour.pdf"
                             download
                             className="inline-block px-6 py-3 bg-stone-800 text-white 
                             font-semibold tracking-widest shadow-lg 
