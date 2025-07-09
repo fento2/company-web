@@ -13,7 +13,7 @@ export default async function RelatedArticle({ article }: RelatedArticleProps) {
     params: {
       pageSize: 100,
       sortBy: "created desc",
-      where: `category = '${article.category}' AND objectId != '${article.objectId}'`,// jangan nampilin yang di klik
+      where: `category = '${article.category}' AND published = true AND objectId != '${article.objectId}'`,// jangan nampilin yang di klik
     },
   });
 
