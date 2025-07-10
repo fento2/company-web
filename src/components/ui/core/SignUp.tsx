@@ -54,7 +54,7 @@ export default function SignUp(props: ISignUp) {
       });
 
 
-      console.log(res);
+
       toast.success("Account created successfully!");
 
       inputFirstNameRef.current!.value = "";
@@ -69,7 +69,7 @@ export default function SignUp(props: ISignUp) {
 
 
     } catch (error) {
-      console.log(error);
+    
       toast.error("Something went wrong");
     }
   };

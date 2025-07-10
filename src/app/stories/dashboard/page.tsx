@@ -39,13 +39,13 @@ export default function Dashboard() {
                     where: `author = '${username}'`,
                 }
             });
-            console.log(res.data);
+     
             dispatch(setMyArticles(res.data));
             setIsLoading(true);
 
 
         } catch (error) {
-            console.log(error);
+         
         }
     };
 
@@ -78,10 +78,10 @@ export default function Dashboard() {
                     published,
                 });
 
-                console.log(res);
+               
                 toast.success("Article uploaded successfully!");
             } catch (error) {
-                console.log(error);
+              
                 toast.error("Failed to upload article.");
             }
 
@@ -111,11 +111,11 @@ export default function Dashboard() {
                     published,
                 });
 
-                console.log(res);
+          
                 toast.success("Article updated successfully!");
                 dispatch(clearEditArticle());
             } catch (error) {
-                console.log(error);
+               
                 toast.error("Failed to update article.");
             }
 

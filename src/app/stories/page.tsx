@@ -39,7 +39,7 @@ export default function BlogPage() {
             setIsLoading(true);
 
         } catch (error) {
-            console.log(error);
+          
         }
     };
 

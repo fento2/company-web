@@ -44,7 +44,7 @@ export default function GridMyArticle({ articleList, getMyArticleList,isLoading 
       toast.success("Article deleted successfully!");
       getMyArticleList();
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
