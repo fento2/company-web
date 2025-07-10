@@ -38,7 +38,7 @@ export default function BlogPage() {
             dispatch(setArticles(res.data));
             setIsLoading(true);
 
-        } catch (error) {
+        } catch  {
           
         }
     };

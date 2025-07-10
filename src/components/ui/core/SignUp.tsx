@@ -43,7 +43,7 @@ export default function SignUp(props: ISignUp) {
 
     try {
 
-      const res = await apiCall.post("/accounts", {
+      await apiCall.post("/accounts", {
 
         firstName,
         lastName,
@@ -68,7 +68,7 @@ export default function SignUp(props: ISignUp) {
       props.openSignIn(true);
 
 
-    } catch (error) {
+    } catch  {
     
       toast.error("Something went wrong");
     }

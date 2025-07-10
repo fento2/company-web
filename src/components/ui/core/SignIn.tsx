@@ -65,7 +65,7 @@ export default function SignIn(props: ISignIn) {
             }
 
             props.openSignIn(false);
-        } catch (error) {
+        } catch {
           
             toast.error("Something went wrong");
         }

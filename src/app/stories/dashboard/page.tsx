@@ -39,13 +39,13 @@ export default function Dashboard() {
                     where: `author = '${username}'`,
                 }
             });
-     
+
             dispatch(setMyArticles(res.data));
             setIsLoading(true);
 
 
-        } catch (error) {
-         
+        } catch {
+
         }
     };
 
@@ -68,7 +68,7 @@ export default function Dashboard() {
             const slug = toSlug(title);
 
             try {
-                const res = await apiCall.post("/articles", {
+                await apiCall.post("/articles", {
                     title,
                     slug,
                     thumbnail: inputCreate.get("thumbnail"),
@@ -78,10 +78,10 @@ export default function Dashboard() {
                     published,
                 });
 
-               
+
                 toast.success("Article uploaded successfully!");
-            } catch (error) {
-              
+            } catch {
+
                 toast.error("Failed to upload article.");
             }
 
@@ -102,7 +102,7 @@ export default function Dashboard() {
             const slug = toSlug(title);
 
             try {
-                const res = await apiCall.put(`/articles/${objectId}`, {
+                await apiCall.put(`/articles/${objectId}`, {
                     title,
                     slug,
                     thumbnail: inputCreate.get("thumbnail"),
@@ -111,11 +111,11 @@ export default function Dashboard() {
                     published,
                 });
 
-          
+
                 toast.success("Article updated successfully!");
                 dispatch(clearEditArticle());
-            } catch (error) {
-               
+            } catch {
+
                 toast.error("Failed to update article.");
             }
 
@@ -154,7 +154,7 @@ export default function Dashboard() {
             <section className=" bg-stone-200">
                 {/* sidebar */}
                 <aside className="hidden lg:block fixed top-0 left-0 h-full w-[240px]">
-                    <SidebarDashboard setProfile={setProfile} profile={profile}/>
+                    <SidebarDashboard setProfile={setProfile} profile={profile} />
                 </aside>
 
                 {/* my article */}
@@ -191,7 +191,7 @@ export default function Dashboard() {
                 </main>}
             </section>
 
-            {profile && <Profile/>}
+            {profile && <Profile />}
         </>
 
 

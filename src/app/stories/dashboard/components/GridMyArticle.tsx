@@ -26,7 +26,7 @@ interface IGridMyArticle {
   isLoading: boolean,
 }
 
-export default function GridMyArticle({ articleList, getMyArticleList,isLoading }: IGridMyArticle,) {
+export default function GridMyArticle({ articleList, getMyArticleList, isLoading }: IGridMyArticle,) {
   const [showManageArticle, setShowManageArticle] = useState(false);
   const dispatch = useAppDispatch();
   const isEditing = useAppSelector((state) => state.editArticleSlice.isEditing);
@@ -43,8 +43,8 @@ export default function GridMyArticle({ articleList, getMyArticleList,isLoading 
       await apiCall.delete(`/articles/${selectedDelete}`);
       toast.success("Article deleted successfully!");
       getMyArticleList();
-    } catch (error) {
-      
+    } catch {
+
     }
   };
 
@@ -107,49 +107,57 @@ export default function GridMyArticle({ articleList, getMyArticleList,isLoading 
         {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch} setShowManageArticle={setShowManageArticle} />}
 
         {/* Grid */}
-        {isLoading ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[400px]">
+        {isLoading ? <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[400px]">
 
-          {sortedArticles.map((value, index) => (
-            <div key={index} className={`relative overflow-hidden group border-none`}
-            >
-
-              <Image
-                src={value.thumbnail}
-                alt={value.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-black/30 "
-                onClick={() => router.push(`/articles/${value.slug}`)} />
-
-              <div className="absolute top-2 right-2 cursor-pointer hover:bg-stone-500 hover:rounded-4xl p-2">
-                {!isEditing && (
-                  <EllipsisVertical
-                    className="text-white"
-                    onClick={() => {
-                      setShowManageArticle(true);
-                      dispatch(setEditArticle({ ...value, isEditing: false }));
-                      setSelectedDelete(value.objectId);
-                    }}
-                  />
-                )}
-              </div>
-
-              <div
-                className="absolute bottom-0 left-0 right-0 p-4 z-10 bg-stone-100 text-slate-800 w-full h-auto"
+            {sortedArticles.map((value, index) => (
+              <div key={index} className={`relative overflow-hidden group border-none`}
               >
-                <p className="text-[10px] sm:text-xs uppercase">{value.category}</p>
-                <h3 className="text-base sm:text-lg font-playfair font-normal break-words leading-snug font-serif">
-                  {value.title}
-                </h3>
-                <p className="text-xs sm:text-sm underline">Read article</p>
+
+                <Image
+                  src={value.thumbnail}
+                  alt={value.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/30 "
+                  onClick={() => router.push(`/articles/${value.slug}`)} />
+
+                <div className="absolute top-2 right-2 cursor-pointer hover:bg-stone-500 hover:rounded-4xl p-2">
+                  {!isEditing && (
+                    <EllipsisVertical
+                      className="text-white"
+                      onClick={() => {
+                        setShowManageArticle(true);
+                        dispatch(setEditArticle({ ...value, isEditing: false }));
+                        setSelectedDelete(value.objectId);
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-4 z-10 bg-stone-100 text-slate-800 w-full h-auto"
+                >
+                  <p className="text-[10px] sm:text-xs uppercase">{value.category}</p>
+                  <h3 className="text-base sm:text-lg font-playfair font-normal break-words leading-snug font-serif">
+                    {value.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm underline">Read article</p>
+                </div>
+
               </div>
+            ))}
+          </div>
+          {articleList.length === 0 && (
+            <p className="text-slate-800 italic text-lg mt-4 text-center">
+              You haven&apos;t created any articles yet.
+            </p>
+          )}
 
-            </div>
-          ))}
-        </div>
+        </>
 
-         :
+          :
           <div className="mx-auto animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600" />
         }
 
