@@ -13,7 +13,7 @@ import Link from "next/link";
 export function ConditionalFooter() {
     const pathname = usePathname();
 
-    const hideFooter = pathname.startsWith("/blog/dashboard"); //hide footer jika url starwith blog/dashboard
+    const hideFooter = pathname.startsWith("/stories/dashboard"); //hide footer di dashboard
 
     if (hideFooter) return null;
 

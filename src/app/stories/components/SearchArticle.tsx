@@ -1,7 +1,7 @@
 "use client"
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { IArticle } from "@/helper/article";
 import { useState } from "react";
 import Image from "next/image";
@@ -19,13 +19,13 @@ interface ISearchArticle {
 
 
 export default function SearchArticle({ list, setShowSearch, setShowManageArticle }: ISearchArticle) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
   const pathname = usePathname();
   const router = useRouter();
   const inDashboard = pathname.startsWith('/stories/dashboard');
   const dispatch = useAppDispatch()
   const filtered = list.filter((article) =>
-    article.title.toLowerCase().includes(searchTerm.toLowerCase())
+    article.title.toLowerCase().includes(inputSearch.toLowerCase())
   );
 
 
@@ -42,17 +42,20 @@ export default function SearchArticle({ list, setShowSearch, setShowManageArticl
             <X className="w-5 h-5" />
           </button>
 
-          <h2 className="text-xl font-semibold mb-4 normal-case">Search Article</h2>
+          <h2 className="text-xl font-semibold mb-4 normal-case font-serif">Search Article</h2>
+          <div className="relative w-full">
+            <Search className="absolute left-2 top-4 -translate-y-1/2" />
+            <Input
+              placeholder="What are you looking for?"
+              className="pl-10 mb-4 rounded-none font-serif font-normal"
+              value={inputSearch}
+              onChange={(val) => setInputSearch(val.target.value)}
+            />
+          </div>
 
-          <Input
-            placeholder="Search Article..."
-            className="mb-4 rounded-none"
-            value={searchTerm}
-            onChange={(val) => setSearchTerm(val.target.value)}
-          />
 
           <div className="space-y-4 mb-4 max-h-80 overflow-y-auto">
-            {searchTerm && filtered.length > 0 ? (
+            {inputSearch && filtered.length > 0 ? (
               filtered.map((value, index) => (
 
                 <div key={index} className="flex justify-between items-center">
@@ -68,21 +71,21 @@ export default function SearchArticle({ list, setShowSearch, setShowManageArticl
                       />
                     </div>
                     <div>
-                      <h3 className="text-base font-semibold text-black line-clamp-1">
+                      <h3 className="text-base font-normal line-clamp-1 font-serif">
                         {value.title}
                       </h3>
-                      <p className="text-sm text-gray-600">{value.category}</p>
+                      <p className="text-sm text-stone-600">{value.category}</p>
                     </div>
                   </div>
                   <div className="mr-12">
                     {inDashboard && <EllipsisVertical onClick={() => {
                       setShowManageArticle?.(true)
-                      dispatch(setEditArticle({...value, isEditing: false}))
-                    }} className="cursor-pointer"/> }
+                      dispatch(setEditArticle({ ...value, isEditing: false }))
+                    }} className="cursor-pointer" />}
                   </div>
                 </div>
               ))
-            ) : searchTerm ? (
+            ) : inputSearch ? (
               <div className="text-gray-500">No results found</div>
             ) : null}
           </div>

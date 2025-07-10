@@ -26,6 +26,7 @@ export default function Dashboard() {
     const dispatch = useDispatch()
     const myArticleList = useAppSelector((state) => state.myArticleSlice.list);
     const [profile, setProfile] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const getMyArticleList = async () => {
@@ -40,6 +41,7 @@ export default function Dashboard() {
             });
             console.log(res.data);
             dispatch(setMyArticles(res.data));
+            setIsLoading(true);
 
 
         } catch (error) {
@@ -182,6 +184,7 @@ export default function Dashboard() {
                             <GridMyArticle
                                 articleList={myArticleList}
                                 getMyArticleList={getMyArticleList}
+                                isLoading={isLoading}
                             />
                         </div>
                     </section>

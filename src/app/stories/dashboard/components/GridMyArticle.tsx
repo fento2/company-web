@@ -23,9 +23,10 @@ import SearchArticle from "../../components/SearchArticle";
 interface IGridMyArticle {
   articleList: IArticle[];
   getMyArticleList: () => void;
+  isLoading: boolean,
 }
 
-export default function GridMyArticle({ articleList, getMyArticleList }: IGridMyArticle,) {
+export default function GridMyArticle({ articleList, getMyArticleList,isLoading }: IGridMyArticle,) {
   const [showManageArticle, setShowManageArticle] = useState(false);
   const dispatch = useAppDispatch();
   const isEditing = useAppSelector((state) => state.editArticleSlice.isEditing);
@@ -61,7 +62,7 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
 
     setShowSearch(false);
 
-  }, [isEditing])
+  }, [isEditing]);
 
 
   return (
@@ -106,7 +107,7 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
         {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch} setShowManageArticle={setShowManageArticle} />}
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[400px]">
+        {isLoading ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[400px]">
 
           {sortedArticles.map((value, index) => (
             <div key={index} className={`relative overflow-hidden group border-none`}
@@ -147,6 +148,10 @@ export default function GridMyArticle({ articleList, getMyArticleList }: IGridMy
             </div>
           ))}
         </div>
+
+         :
+          <div className="mx-auto animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600" />
+        }
 
         {showManageArticle && (
           <ManageArticle setShowModal={setShowManageArticle} setShowConfirm={setShowConfirm} />

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import axios from "axios";
 
 interface ITeamMember {
   name: string;
@@ -41,17 +42,19 @@ export default async function TeamsPage() {
   let team: ITeamMember[] = [];
 
   try {
-    const res = await fetch("https://randomuser.me/api/?results=6");
-    const data = await res.json();
+    const res = await axios.get<{ results: RandomUser[] }>("https://randomuser.me/api/?results=6");
 
-    team = data.results.map((user: RandomUser, index: number) => ({
-      name: `${user.name.first} ${user.name.last}`,
-      photo: user.picture.large,
-      role: roles[index % roles.length],
-      bio: bios[index % bios.length],
-    }));
+    if (res.data?.results) {
+      team = res.data.results.map((user: RandomUser, index: number) => ({
+        name: `${user.name.first} ${user.name.last}`,
+        photo: user.picture.large,
+        role: roles[index],
+        bio: bios[index],
+      }));
+    }
+
   } catch (error) {
-    console.error("Failed to fetch team:", error);
+    console.error(error);
   }
 
 

@@ -17,6 +17,7 @@ export default function BlogPage() {
     const [showSearch, setShowSearch] = useState(false);
     const dispatch = useAppDispatch();
     const articleList = useAppSelector((state) => state.articleSlice.list);
+    const [isLoading, setIsLoading] = useState(false);
     const [getCategory] = useState([
         "All", ...dataCategory
     ]);
@@ -35,7 +36,7 @@ export default function BlogPage() {
             });
 
             dispatch(setArticles(res.data));
-
+            setIsLoading(true);
 
         } catch (error) {
             console.log(error);
@@ -83,7 +84,7 @@ export default function BlogPage() {
                 ">
 
                     <Search className=" w-8 h-8 shrink-0 cursor-pointer" onClick={() => setShowSearch(true)} />
-                    {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch}/>}
+                    {showSearch && <SearchArticle list={articleList} setShowSearch={setShowSearch} />}
 
                     {/* Category List Manual */}
                     <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
@@ -100,7 +101,11 @@ export default function BlogPage() {
                 </div>
 
                 {/* list article */}
-                <ArticleGrid articleList={PrintArticleList} />
+                {isLoading ?
+                    <ArticleGrid articleList={PrintArticleList} />
+                    :
+                    <div className="mx-auto animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600" />
+                }
             </section>
         </div>
     );

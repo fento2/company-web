@@ -23,7 +23,7 @@ const editArticleSlice = createSlice({
   name: "editArticle",
   initialState,
   reducers: {
-    setEditArticle: (state, action: PayloadAction<EditArticleState>) => {
+    setEditArticle: (state, action: PayloadAction<EditArticleState>) => { //buat jadi default value di form
       return {
         ...action.payload,
       };
