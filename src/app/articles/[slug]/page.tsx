@@ -64,7 +64,7 @@ export default async function Page({ params }: PageProps) {
                   .split("\n")
                   .filter((value: string) => value.trim() !== "")
                   .map((paraf: string, index: number) => (
-                    <p key={index}>{paraf.trim()}</p>
+                    <p key={index} className="mb-8 text-justify indent-8">{paraf.trim()}</p>
                   ))}
               </div>
             </div>
